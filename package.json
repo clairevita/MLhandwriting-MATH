@@ -1,0 +1,22 @@
+{
+  "name": "mlhandwriting-math",
+  "version": "1.0.0",
+  "description": "Proof of concept for math application using stylus or finger",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/clairevita/MLhandwriting-MATH.git"
+  },
+  "author": "Claire Vita",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/clairevita/MLhandwriting-MATH/issues"
+  },
+  "homepage": "https://github.com/clairevita/MLhandwriting-MATH#readme",
+  "dependencies": {
+    "iink-js": "^1.4.5"
+  }
+}
