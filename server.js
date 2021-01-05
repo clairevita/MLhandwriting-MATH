@@ -16,25 +16,37 @@ app.get("/", function (req, res) {
   res.sendFile(path.join(__dirname, "index.html"));
 });
 
-function buildCreds() {
-  require("dotenv").config();
-}
 
-buildCreds();
-async function quickstart(myproject) {
+quickstart();
+async function quickstart() {
   // Imports the Google Cloud client library
   const vision = require('@google-cloud/vision');
+
   // Creates a client
-  console.log();
   const client = new vision.ImageAnnotatorClient({
-    credentials: `${myproject}`
+    keyFilename: "./node_modules/google-gax/My Project-528abf0f6cfb.json"
   });
 
-  // Performs label detection on the image file
-  const [result] = await client.labelDetection('./resources/dannyhembree2.jpg');
-  const labels = result.labelAnnotations;
-  console.log('Labels:');
-  labels.forEach(label => console.log(label.description));
+  const [result] = await client.documentTextDetection("./resources/dannyhembree2.jpg");
+  const fullTextAnnotation = result.fullTextAnnotation;
+  console.log(`Full text: ${fullTextAnnotation.text}`);
+  fullTextAnnotation.pages.forEach(page => {
+    page.blocks.forEach(block => {
+      console.log(`Block confidence: ${block.confidence}`);
+      block.paragraphs.forEach(paragraph => {
+        console.log(`Paragraph confidence: ${paragraph.confidence}`);
+        paragraph.words.forEach(word => {
+          const wordText = word.symbols.map(s => s.text).join('');
+          console.log(`Word text: ${wordText}`);
+          // console.log(`Word confidence: ${word.confidence}`);
+          // word.symbols.forEach(symbol => {
+          //   console.log(`Symbol text: ${symbol.text}`);
+          //   console.log(`Symbol confidence: ${symbol.confidence}`);
+          // });
+        });
+      });
+    });
+  });
 }
 
 
