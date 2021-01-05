@@ -1,5 +1,4 @@
-resources\projectcredentials.json
-
+resources/
 # Logs
 logs
 *.log
