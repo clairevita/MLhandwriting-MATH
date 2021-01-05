@@ -38,6 +38,7 @@ function buildCreds() {
     quickstart();
   });
 }
+
 buildCreds();
 async function quickstart() {
   // Imports the Google Cloud client library
