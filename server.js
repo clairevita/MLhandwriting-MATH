@@ -18,7 +18,6 @@ app.get("/", function (req, res) {
 
 function buildCreds() {
   require("dotenv").config();
-  const fs = require('fs');
   let myproject =
   {
     "type": "service_account",
@@ -32,22 +31,17 @@ function buildCreds() {
     "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
     "client_x509_cert_url": process.env.MYPROJECT_CERTURL
   }
-  fs.appendFile('./resources/projectcredentials.json', JSON.stringify(myproject), (err) => {
-    if (err) throw err;
-    console.log("credentials intitialized");
-    quickstart();
-  });
+  quickstart(JSON.stringify(myproject));
 }
 
 buildCreds();
-async function quickstart() {
+async function quickstart(myproject) {
   // Imports the Google Cloud client library
   const vision = require('@google-cloud/vision');
-  const myproject = require('./resources/projectcredentials.json')
-
   // Creates a client
+  console.log();
   const client = new vision.ImageAnnotatorClient({
-    keyFilename: myproject
+    credentials: JSON.parse(myproject)
   });
 
   // Performs label detection on the image file
