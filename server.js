@@ -41,7 +41,7 @@ async function quickstart(myproject) {
   // Creates a client
   console.log();
   const client = new vision.ImageAnnotatorClient({
-    credentials: JSON.parse(myproject)
+    credentials: `${myproject}`
   });
 
   // Performs label detection on the image file
