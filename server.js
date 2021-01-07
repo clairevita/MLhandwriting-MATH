@@ -6,7 +6,6 @@ const app = express();
 
 app.use(express.static('/'));
 
-//Here we are telling the host to use the Express framework.
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
@@ -15,8 +14,6 @@ var path = require("path");
 app.get("/", function (req, res) {
   res.sendFile(path.join(__dirname, "index.html"));
 });
-
-
 quickstart();
 async function quickstart() {
   // Imports the Google Cloud client library
@@ -26,7 +23,6 @@ async function quickstart() {
   const client = new vision.ImageAnnotatorClient({
     keyFilename: "./node_modules/google-gax/My Project-528abf0f6cfb.json"
   });
-
   const [result] = await client.documentTextDetection("./resources/dannyhembree2.jpg");
   const fullTextAnnotation = result.fullTextAnnotation;
   console.log(`Full text: ${fullTextAnnotation.text}`);
@@ -48,8 +44,6 @@ async function quickstart() {
     });
   });
 }
-
-
 //This initiates the server.
 app.listen(PORT, function () {
   console.log("App listening on PORT: " + PORT);
