@@ -34,11 +34,11 @@ async function quickstart() {
         paragraph.words.forEach(word => {
           const wordText = word.symbols.map(s => s.text).join('');
           console.log(`Word text: ${wordText}`);
-          // console.log(`Word confidence: ${word.confidence}`);
-          // word.symbols.forEach(symbol => {
-          //   console.log(`Symbol text: ${symbol.text}`);
-          //   console.log(`Symbol confidence: ${symbol.confidence}`);
-          // });
+          console.log(`Word confidence: ${word.confidence}`);
+          word.symbols.forEach(symbol => {
+            console.log(`Symbol text: ${symbol.text}`);
+            console.log(`Symbol confidence: ${symbol.confidence}`);
+          });
         });
       });
     });
