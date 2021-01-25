@@ -112,3 +112,13 @@ async function train() {
     }
     createLogEntry('Training completed.')
 }
+
+async function main(){
+    createModel();
+    await load();
+    await train();
+    document.getElementById('selectTestDataButton').disabled = false;
+    document.getElementById('selectTestDataButton').innerText = "Randomly Select Test Data and Predict";
+}
+
+main();
