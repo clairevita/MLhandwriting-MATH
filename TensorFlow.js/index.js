@@ -2,6 +2,7 @@ import 'bootstrap/dist/css/bootstrap';
 import * as tf from '@tensorflow/tfjs';
 
 import { MnistData } from './data';
+
 let model;
 
 function createLogEntry(entry) {
@@ -12,7 +13,7 @@ function createModel() {
     createLogEntry('Creating Model ...');
     model = tf.sequential();
     createLogEntry('Model created.');
-    
+
     createLogEntry('Adding layers...');
     //Input shape is the size of the image that is being passed into the neural network (px)
     //Kernel Size is the size of the shape that scans across the input (5x5 px)
@@ -76,6 +77,38 @@ function createModel() {
     });
 
     createLogEntry('Compiling completed.');
+}
 
+let data;
+// Next we're going to load the tensor flow MNIST data.
+async function load() {
+    createLogEntry('Loading MNIST data.');
+    data = new MnistData();
+    await data.load();
+    createLogEntry('Data has been loaded.');
+}
 
+const BATCH_SIZE = 64;
+const TRAIN_BATCHES = 150;
+
+//Time to train the model
+async function train() {
+    createLogEntry('Initiating training.');
+    for (let i = 0; i < TRAIN_BATCHES; i++) {
+        //Every time a training method happens, we're going to completely clear the batch
+        const batch = tf.tidy(() => {
+            const batch = data.nextTrainBatch(BATCH_SIZE);
+            batch.xs = batch.xs.reshape([BATCH_SIZE, 28, 28, 1]);
+            return batch;
+        });
+
+        await model.fit(
+            batch.xs, batch.labels, { batchSize: BATCH_SIZE, epochs: 1 }
+        );
+
+        tf.dispose(batch);
+
+        await tf.nextFrame();
+    }
+    createLogEntry('Training completed.')
 }
