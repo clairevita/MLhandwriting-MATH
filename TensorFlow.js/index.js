@@ -1,6 +1,7 @@
 import 'bootstrap/dist/css/bootstrap';
 import * as tf from '@tensorflow/tfjs';
 
+import { MnistData } from './data';
 let model;
 
 function createLogEntry(entry) {
@@ -75,4 +76,6 @@ function createModel() {
     });
 
     createLogEntry('Compiling completed.');
+
+
 }
