@@ -13,11 +13,41 @@
             width: 100px;
             margin: 20px;
         }
+
         .prediction-div {
             display: inline-block;
             margin: 10px;
         }
     </style>
+
+    <div class="container" style="padding-top: 20px;">
+        <div class="card">
+            <div class="card-header">
+                <strong>
+                    Tensorflow.js Demonstration for Project 3
+                </strong>
+            </div>
+            <div class="card-body">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            Log Output:
+                        </h5>
+                        <div id="log"></div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title"></h5>
+                        <button type="button" class="btn btn-primary" id="selectTestDataButton" disabled>Please Wait Until Model Creation</button>
+                        <div id="predictionResult"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src='./index.js'></script>
 </body>
 
 </html>
