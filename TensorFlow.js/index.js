@@ -24,7 +24,7 @@ function createModel() {
     model.add(tf.layers.conv2d({
         inputShape: [28, 28, 1],
         kernelSize: 5,
-        filter: 8,
+        filters: 8,
         strides: 1,
         activation: 'relu',
         kernelInitializer: 'VarianceScaling'
@@ -41,7 +41,7 @@ function createModel() {
     // We remove input shape because it is inherited from our 2d convolution layer
     model.add(tf.layers.conv2d({
         kernelSize: 5,
-        filter: 16,
+        filters: 16,
         strides: 1,
         activation: 'relu',
         kernelInitializer: 'VarianceScaling'
@@ -73,7 +73,7 @@ function createModel() {
     //Calculates loss between final labels and the predictions
     model.compile({
         optimizer: tf.train.sgd(0.15),
-        loss: 'cetgoricalCrossentropy'
+        loss: 'categoricalCrossentropy'
     });
 
     createLogEntry('Compiling completed.');
