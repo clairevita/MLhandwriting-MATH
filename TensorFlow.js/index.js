@@ -113,12 +113,20 @@ async function train() {
     createLogEntry('Training completed.')
 }
 
+//This function addresses each of our training steps, creating the model, loading the data, and then training against it.
 async function main(){
     createModel();
     await load();
     await train();
     document.getElementById('selectTestDataButton').disabled = false;
     document.getElementById('selectTestDataButton').innerText = "Randomly Select Test Data and Predict";
+}
+
+//Now we can attempt a prediction versus our trained model
+async function predict(batch){
+    tf.tidy(() => {
+
+    })
 }
 
 main();
