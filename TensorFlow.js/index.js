@@ -157,4 +157,27 @@ async function predict(batch){
     });
 }
 
+//Non essential to project 3. This draws the image to the front end. Used for visualization as practice
+function draw(image, canvas) {
+    const [width, height] = [28, 28];
+    canvas.width = width;
+    canvas.height = height;
+    const ctx = canvas.getContext('2d');
+    const imageData = new ImageData(width, height);
+    const data = image.dataSync();
+    for (let i = 0; i < height * width; ++i) {
+        const j = i * 4;
+        imageData.data[j+ 0] = data[i] * 255;
+        imageData.data[j+ 1] = data[i] * 255;
+        imageData.data[j+ 2] = data[i] * 255;
+        imageData.data[j+ 3] = data[i] * 255;
+    }
+    ctx.putImageData(imageData, 0, 0);
+}
+
+document.getElementById('selectTestDataButton').addEventListener('click', async (el,ev) => {
+    const batch = data.nextTestBatch(1);
+    await predict(batch);
+});
+
 main();
