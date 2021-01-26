@@ -2,6 +2,7 @@ import 'bootstrap/dist/css/bootstrap';
 import * as tf from '@tensorflow/tfjs';
 
 import { MnistData } from './data';
+import { deprecationWarn } from '@tensorflow/tfjs';
 
 let model;
 
@@ -123,10 +124,37 @@ async function main(){
 }
 
 //Now we can attempt a prediction versus our trained model
+//
 async function predict(batch){
     tf.tidy(() => {
+        const input_value = Array.from(batch.labels.argMax(1).dataSync());
 
-    })
+        const div = document.createElement('div');
+        div.className = 'prediction-div';
+
+        const output = model.predict(batch.xs.reshape([-1, 28, 28, 1]));
+
+        const prediction_value = Array.from(output.argMax(1).dataSync());
+        const image = batch.xs.slice([0, 0], [1, batch.xs.shape[1]]);
+
+        const canvas = document.createElement('canvas');
+        canvas.className = 'prediction-canvas';
+        draw(image.flatten(), canvas);
+
+        const label = document.createElement('div');
+        label.innerHTML = 'Original Value: ' + input_value
+        label.innerHTML += '<br>Prediction Value: ' + prediction_value;
+
+        if (prediction_value - input_value == 0){
+            label.innerHTML += '<br>Value recognized successfully.';
+        } else {
+            label.innerHTML += '<br>Recognition failed.';
+        }
+
+        div.appendChild(canvas);
+        div.appendChild(label);
+        document.getElementById('predictionResult').appendChild(div);
+    });
 }
 
 main();
